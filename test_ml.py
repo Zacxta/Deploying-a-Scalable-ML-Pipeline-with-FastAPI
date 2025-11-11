@@ -58,6 +58,12 @@ def test_two():
 def test_train_test_data_types():
     """
     This test checks to ensure that the train and test split are
-    actually pandas dataframes.
+    actually pandas dataframes after the split.
     """
-    pass
+    assert isinstance(test_data, pd.DataFrame), \
+        "Input data is not a pandas dataframe."
+    train, test = train_test_split(test_data, test_size=0.2, random_state=42)
+    assert isinstance(train, pd.DataFrame), \
+        "Train output is not a pandas dataframe."
+    assert isinstance(test, pd.DataFrame), \
+        "Test output is not a pandas dataframe."
