@@ -18,7 +18,7 @@ def test_data():
     return data
 
 
-def train_model_test(test_data):
+def test_train_model(test_data):
     """
     This tests to ensure that the train_model function properly returns
     a random forest model as expected.
@@ -55,7 +55,7 @@ def test_two():
 
 
 # TODO: implement the third test. Change the function name and input as needed
-def train_test_data_types():
+def test_train_test_data_types():
     """
     This test checks to ensure that the train and test split are
     actually pandas dataframes.
