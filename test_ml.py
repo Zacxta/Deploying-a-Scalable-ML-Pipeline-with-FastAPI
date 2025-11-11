@@ -1,13 +1,31 @@
 import pytest
 # TODO: add necessary import
+import os
+from ml.data import process_data
+from ml.model import train_model
+from sklearn.ensemble import RandomForestClassifier
 
 # TODO: implement the first test. Change the function name and input as needed
-def test_one():
+@pytest.fixture
+def test_data():
+    project_path = os.getcwd()
+    data_path = os.path.join(project_path, "data", "census.csv")
+    print(data_path)
+    data = pd.read_csv(data_path)
+    return data
+
+
+def train_model_test(test_data):
     """
-    # add description for the first test
+    This tests to ensure that the train_model function properly returns
+    a random forest model.
     """
-    # Your code here
-    pass
+    train, test = train_test_split(data, test_size=0.2, random_state=42)
+    X_train, y_train, encoder, lb = process_data(
+    train, cat_features, training=True, label="salary"
+    )
+    model = train_model(X_train, y_train)
+    assert isinstance(model, RandomForestClassifier), "Model is not a RandomForestClassifier"
 
 
 # TODO: implement the second test. Change the function name and input as needed
@@ -20,9 +38,10 @@ def test_two():
 
 
 # TODO: implement the third test. Change the function name and input as needed
-def test_three():
+def train_test_data_types():
     """
-    # add description for the third test
+    This test checks to ensure that the train and test split are
+    actually pandas dataframes.
     """
-    # Your code here
     pass
+    

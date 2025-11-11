@@ -12,6 +12,7 @@ from ml.model import (
     save_model,
     train_model,
 )
+
 # TODO: load the cencus.csv data
 project_path = os.getcwd()
 data_path = os.path.join(project_path, "data", "census.csv")
@@ -39,7 +40,7 @@ X_train, y_train, encoder, lb = process_data(
     # use the train dataset
     # use training=True
     # do not need to pass encoder and lb as input
-    process_data(train, cat_features, training=True)
+    train, cat_features, training=True, label="salary"
     )
 
 X_test, y_test, _, _ = process_data(
@@ -67,7 +68,7 @@ model = load_model(
 
 # TODO: use the inference function to run
 # the model inferences on the test dataset.
-preds = inference(model, X_train)
+preds = inference(model, X_test)
 
 # Calculate and print the metrics
 p, r, fb = compute_model_metrics(y_test, preds)
@@ -81,10 +82,10 @@ for col in cat_features:
     for slicevalue in sorted(test[col].unique()):
         count = test[test[col] == slicevalue].shape[0]
         p, r, fb = performance_on_categorical_slice(
-            test, col, slicevalue
+            test, col, slicevalue, cat_features, "salary", encoder, lb, model
         )
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
-            print(f"Precision: {p:.4f} | "
-                  f"Recall: {r:.4f} | "
+            print(f"Precision: {p:.4f} | ",
+                  f"Recall: {r:.4f} | ",
                   f"F1: {fb:.4f}", file=f)
